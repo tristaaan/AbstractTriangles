@@ -3,9 +3,17 @@ var canvas;
 window.onload = function(){
   canvas = new AbstractTriangles(window.innerWidth, window.innerHeight);
   var gui = new dat.GUI();
-  var c1 = gui.add(canvas, 'triangleSets', 1, 5).step(1);
-  var c2 = gui.add(canvas, 'trianglesPerSet', 1, 40).step(1);
-  var c3 = gui.add(canvas, 'limitPointsToBounds');
+  var swipeReceiver = document;
+  Hammer(swipeReceiver).on('doubletap',function(e){
+    cDraw();
+  });
+
+  var controls = [];
+  controls.push(gui.add(canvas, 'triangleSets', 1, 5).step(1));
+  controls.push(gui.add(canvas, 'trianglesPerSet', 1, 40).step(1));
+  controls.push(gui.add(canvas, 'maxTransparency',0.05,1).step(0.05));
+  controls.push(gui.add(canvas, 'limitPointsToBounds'));
+  gui.add(canvas, 'fullscreen');
 
   function cDraw(){
     canvas.draw(window.innerWidth, window.innerHeight);
@@ -13,9 +21,10 @@ window.onload = function(){
 
   // because AbstractTriangles object is static SVG these are needed.
   // alternatively alter frameUpdate to call canvas.draw(w,h);
-  c1.onChange(cDraw);
-  c2.onChange(cDraw);
-  c3.onChange(cDraw);
+  controls.forEach(function(element){
+    element.onChange(cDraw);
+  });
+
 };
 
 window.onkeyup = function(e){
@@ -48,6 +57,7 @@ var AbstractTriangles = function(w, h){
   my.triangleSets = 2;
   my.trianglesPerSet = 15;
   my.limitPointsToBounds = true;
+  my.maxTransparency = 1.0;
 
   my.draw = function(w, h){
     //initialize and resize
@@ -65,6 +75,35 @@ var AbstractTriangles = function(w, h){
     for (var i=0; i < my.triangleSets; i++){
       randomTriangles(my.trianglesPerSet, randomRGBA, randomRGBA, 0);
     }
+  }
+
+  my.fullscreen = function(){
+    if (!document.fullscreenElement &&
+      !document.mozFullScreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.msFullscreenElement ) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+    }
+    else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+    my.draw(window.innerWidth, window.innerHeight);
   }
 
   //for when AbstractTriangles is initialized
@@ -104,7 +143,7 @@ var AbstractTriangles = function(w, h){
     return 'rgba(' + randInt(255) + ','
     + randInt(255)  + ','
     + randInt(255)  + ','
-    + randFloat().toString().substr(0,4) + ')';
+    + randFloat(my.maxTransparency).toString().substr(0,4) + ')';
   }
 
   function randInt(upper){
