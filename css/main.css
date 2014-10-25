@@ -1,3 +1,47 @@
 body {
   background-color: white;
 }
+#instructions {
+  z-index: 100;
+  position: fixed;
+  right: 5px;
+  bottom: 0;
+  font-family: 'Helvetica' 'Arial' 'sans-serif';
+  color: rgba(0, 0, 0, 0);
+  animation: fadeout 10s linear 1;
+  -webkit-animation: fadeout 10s linear 1;
+  -moz-animation: fadeout 10s linear 1;
+  -o-animation: fadeout 10s linear 1;
+}
+@keyframes fadeout {
+  from {
+    color: #000000;
+  }
+  to {
+    color: rgba(0, 0, 0, 0);
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    color: #000000;
+  }
+  to {
+    color: rgba(0, 0, 0, 0);
+  }
+}
+@-moz-keyframes fadeout {
+  from {
+    color: #000000;
+  }
+  to {
+    color: rgba(0, 0, 0, 0);
+  }
+}
+@-o-keyframes fadeout {
+  from {
+    color: #000000;
+  }
+  to {
+    color: rgba(0, 0, 0, 0);
+  }
+}

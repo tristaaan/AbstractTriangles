@@ -14,7 +14,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('reload', function(){
-	gulp.pipe(reload({ stream:true }));
+	browserSync.reload();
 });
 
 gulp.task('serve', function() {
@@ -24,7 +24,7 @@ gulp.task('serve', function() {
     }
   });
 
-  gulp.watch('css/*.less', ['less']);
+  gulp.watch('css/*.less', ['less', 'reload']);
   gulp.watch(['*.html', 'js/**/*.js'], {cwd:'.'}, reload);
 });
 
