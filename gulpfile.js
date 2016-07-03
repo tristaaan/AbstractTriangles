@@ -28,3 +28,4 @@ gulp.task('serve', function() {
   gulp.watch(['*.html', 'js/**/*.js'], {cwd:'.'}, reload);
 });
 
+gulp.task('default', ['serve']);

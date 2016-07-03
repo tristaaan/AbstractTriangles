@@ -1,0 +1,24 @@
+{
+  "name": "abstract-triangles",
+  "version": "1.0.0",
+  "description": "- Draws random SVG triangles with [RaphaelJS](https://github.com/DmitryBaranovskiy/raphael/). - Adjust draw settings with [dat.GUI](https://github.com/dataarts/dat.gui). - Uses [Hammer.js](https://github.com/hammerjs/hammer.js) (1.1.3) to recognize a gesture. - Just for fun.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tristaaan/AbstractTriangles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tristaaan/AbstractTriangles/issues"
+  },
+  "homepage": "https://github.com/tristaaan/AbstractTriangles#readme",
+  "dependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.1.0"
+  }
+}
